@@ -19,13 +19,13 @@ function EmptyState() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center py-20 text-center"
+      className="flex flex-col items-center justify-center py-16 text-center"
     >
-      <div className="w-20 h-20 bg-blue-50 dark:bg-blue-950/40 rounded-2xl flex items-center justify-center mb-4">
-        <FileText className="w-9 h-9 text-blue-400" />
+      <div className="w-20 h-20 bg-blue-50 text-blue-600 border border-blue-200/70 dark:bg-blue-950/40 dark:border-blue-800/60 rounded-3xl flex items-center justify-center mb-4 shadow-sm">
+        <FileText className="w-10 h-10 text-blue-600 dark:text-blue-400" />
       </div>
-      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">No claims yet</h3>
-      <p className="text-slate-500 dark:text-slate-400 mt-1 max-w-xs text-sm">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white">No claims yet</h3>
+      <p className="text-slate-600 dark:text-slate-400 mt-1 max-w-xs text-sm font-medium">
         Submit your first insurance claim to get started. Our AI will analyze your document instantly.
       </p>
       <Link to="/patient/submit" className="mt-6">
@@ -58,11 +58,11 @@ export function PatientDashboard() {
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-2xl font-bold text-slate-900 dark:text-white"
+            className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
           >
             Good morning, {user?.name?.split(' ')[0]} 👋
           </motion.h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
+          <p className="text-slate-600 dark:text-slate-400 mt-1 text-sm font-medium">
             Here's an overview of your insurance claims.
           </p>
         </div>
@@ -114,9 +114,9 @@ export function PatientDashboard() {
       {/* Recent Claims */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold text-slate-900 dark:text-white">Recent Claims</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">Recent Claims</h2>
           {claims && claims.length > 5 && (
-            <Link to="/patient/claims" className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1">
+            <Link to="/patient/claims" className="text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1">
               View all <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           )}
@@ -133,31 +133,31 @@ export function PatientDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <th className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-4">Claim ID</th>
-                    <th className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-4">Amount</th>
-                    <th className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-4">Status</th>
-                    <th className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-4">Date</th>
-                    <th className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-4">Approved</th>
+                  <tr className="border-b border-slate-200/80 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/40">
+                    <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Claim ID</th>
+                    <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Amount</th>
+                    <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Status</th>
+                    <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Date</th>
+                    <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Approved</th>
                     <th className="px-6 py-4" />
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                   {recentClaims.map((claim: Claim, index: number) => (
                     <motion.tr
                       key={claim._id}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group"
+                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors group"
                     >
                       <td className="px-6 py-4">
-                        <span className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+                        <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md border border-slate-200/60 dark:border-slate-700">
                           {generateClaimId(claim._id)}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="font-semibold text-slate-900 dark:text-white text-sm">
+                        <span className="font-extrabold text-slate-900 dark:text-white text-sm">
                           {formatCurrency(claim.claimAmount)}
                         </span>
                       </td>
@@ -165,18 +165,18 @@ export function PatientDashboard() {
                         <StatusBadge status={claim.status} size="sm" />
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-sm text-slate-500 dark:text-slate-400">
+                        <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                           {formatDate(claim.createdAt)}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                        <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
                           {claim.approvedAmount ? formatCurrency(claim.approvedAmount) : '—'}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Link to={`/patient/claims/${claim._id}`}>
-                          <button className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                          <button className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                             View <ArrowRight className="w-3 h-3" />
                           </button>
                         </Link>
@@ -196,11 +196,11 @@ export function PatientDashboard() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start gap-3 p-4 rounded-xl bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50"
+          className="flex items-start gap-3 p-4 rounded-2xl bg-blue-50/90 text-blue-900 border border-blue-200/80 shadow-2xs dark:bg-blue-950/30 dark:border-blue-900/50 dark:text-blue-200"
         >
-          <TrendingUp className="w-4.5 h-4.5 text-blue-500 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-blue-700 dark:text-blue-300">
-            You have <strong>{stats.pending}</strong> pending {stats.pending === 1 ? 'claim' : 'claims'} under review. Our team typically responds within 24 hours.
+          <TrendingUp className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+          <p className="text-sm font-medium">
+            You have <strong className="font-bold">{stats.pending}</strong> pending {stats.pending === 1 ? 'claim' : 'claims'} under review. Our team typically responds within 24 hours.
           </p>
         </motion.div>
       )}

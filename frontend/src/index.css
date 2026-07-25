@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   
@@ -19,12 +21,12 @@
   --color-surface-secondary: #f8fafc;
   --color-border: #e2e8f0;
   --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
 
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-card-hover: 0 4px 16px 0 rgb(0 0 0 / 0.08), 0 2px 6px -1px rgb(0 0 0 / 0.06);
-  --shadow-lg: 0 10px 40px -10px rgb(0 0 0 / 0.15);
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+  --shadow-card-hover: 0 12px 28px -6px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -8px rgba(15, 23, 42, 0.12);
 }
 
 * {
@@ -40,6 +42,10 @@ html {
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(219, 234, 254, 0.4) 0px, transparent 50%),
+    radial-gradient(at 90% 90%, rgba(237, 233, 254, 0.3) 0px, transparent 50%);
+  background-attachment: fixed;
   color: #0f172a;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -47,8 +53,11 @@ body {
 /* Dark mode */
 .dark body,
 body.dark {
-  background-color: #0a0f1e;
-  color: #e2e8f0;
+  background-color: #090d16;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(30, 58, 138, 0.25) 0px, transparent 50%),
+    radial-gradient(at 90% 90%, rgba(88, 28, 135, 0.2) 0px, transparent 50%);
+  color: #f1f5f9;
 }
 
 /* Custom scrollbar */
@@ -69,14 +78,14 @@ body.dark {
 
 /* Glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .dark .glass {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -86,16 +95,21 @@ body.dark {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .card:hover {
   box-shadow: var(--shadow-card-hover);
+  border-color: #cbd5e1;
 }
 
 .dark .card {
   background: #0f172a;
   border-color: #1e293b;
+}
+
+.dark .card:hover {
+  border-color: #334155;
 }
 
 /* Gradient text */
@@ -126,21 +140,21 @@ body.dark {
 
 /* Status badges */
 .badge-pending {
-  background: #fef3c7;
-  color: #92400e;
+  background: #fffbeb;
+  color: #b45309;
   border: 1px solid #fde68a;
 }
 
 .badge-approved {
-  background: #d1fae5;
-  color: #065f46;
+  background: #ecfdf5;
+  color: #047857;
   border: 1px solid #a7f3d0;
 }
 
 .badge-rejected {
-  background: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
 }
 
 .dark .badge-pending {
@@ -166,8 +180,8 @@ body.dark {
   .input-base {
     width: 100%;
     background: #ffffff;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
     padding: 10px 14px;
     font-size: 14px;
     color: #0f172a;
@@ -177,23 +191,23 @@ body.dark {
 
   .input-base:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
   }
 
   .input-base.error {
     border-color: #ef4444;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
   }
 
   .dark .input-base {
     background: #0f172a;
     border-color: #1e293b;
-    color: #e2e8f0;
+    color: #f8fafc;
   }
 
   .dark .input-base:focus {
     border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
   }
 }
 
@@ -201,3 +215,4 @@ body.dark {
 .page-transition {
   will-change: opacity, transform;
 }
+

@@ -32,7 +32,7 @@ export function ProtectedLayout({ allowedRole }: ProtectedLayoutProps) {
   if (user?.role !== allowedRole) return <Navigate to="/unauthorized" replace />;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
+    <div className="min-h-screen transition-colors text-slate-900 dark:text-slate-100">
       <Navbar />
       <motion.main
         variants={pageVariants}

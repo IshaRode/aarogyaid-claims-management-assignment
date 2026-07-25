@@ -181,34 +181,34 @@ export function InsurerClaimsTable() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
+                <tr className="border-b border-slate-200/80 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/40">
                   {['Claim ID', 'Patient', 'Amount', 'Status', 'Risk', 'Date', 'Action'].map((h) => (
-                    <th key={h} className="text-left text-xs font-medium text-slate-400 uppercase tracking-wider px-6 py-3.5">{h}</th>
+                    <th key={h} className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {claims.map((claim: Claim, i: number) => (
                   <motion.tr
                     key={claim._id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.03 }}
-                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors"
+                    className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors"
                   >
                     <td className="px-6 py-4">
-                      <span className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md border border-slate-200/60 dark:border-slate-700">
                         {generateClaimId(claim._id)}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div>
-                        <p className="text-sm font-medium text-slate-900 dark:text-white">{claim.patientName}</p>
-                        <p className="text-xs text-slate-400">{claim.email}</p>
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">{claim.patientName}</p>
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{claim.email}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-semibold text-slate-900 dark:text-white text-sm">
+                      <span className="font-extrabold text-slate-900 dark:text-white text-sm">
                         {formatCurrency(claim.claimAmount)}
                       </span>
                     </td>
@@ -216,28 +216,28 @@ export function InsurerClaimsTable() {
                       <StatusBadge status={claim.status} size="sm" />
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full border
+                      <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border
                         ${claim.riskLevel === 'Low'
-                          ? 'text-emerald-600 bg-emerald-50 border-emerald-200 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-emerald-400'
+                          ? 'text-emerald-700 bg-emerald-50 border-emerald-200/80 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-emerald-400'
                           : claim.riskLevel === 'Medium'
-                          ? 'text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-950/40 dark:border-amber-800 dark:text-amber-400'
-                          : 'text-red-600 bg-red-50 border-red-200 dark:bg-red-950/40 dark:border-red-800 dark:text-red-400'
+                          ? 'text-amber-700 bg-amber-50 border-amber-200/80 dark:bg-amber-950/40 dark:border-amber-800 dark:text-amber-400'
+                          : 'text-rose-700 bg-rose-50 border-rose-200/80 dark:bg-rose-950/40 dark:border-rose-800 dark:text-rose-400'
                         }`}>
-                        {claim.riskLevel}
+                        {claim.riskLevel} Risk
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-slate-500 dark:text-slate-400">
+                      <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                         {formatDate(claim.createdAt)}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <Link to={`/insurer/review/${claim._id}`}>
                         <button
-                          className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-colors
+                          className={`text-xs px-3.5 py-1.5 rounded-lg font-semibold transition-all
                           ${claim.status === 'Pending'
-                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                            : 'border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-xs shadow-blue-500/20'
+                            : 'border border-slate-200 text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
                           }`}
                         >
                           {claim.status === 'Pending' ? 'Review' : 'View'}
