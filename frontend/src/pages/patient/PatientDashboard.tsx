@@ -53,8 +53,8 @@ export function PatientDashboard() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 sm:gap-6">
+        <div className="space-y-1">
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,12 +62,12 @@ export function PatientDashboard() {
           >
             Good morning, {user?.name?.split(' ')[0]} 👋
           </motion.h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-1 text-sm font-medium">
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">
             Here's an overview of your insurance claims.
           </p>
         </div>
-        <Link to="/patient/submit">
-          <Button icon={<Plus className="w-4 h-4" />} size="md">
+        <Link to="/patient/submit" className="w-full sm:w-auto shrink-0">
+          <Button icon={<Plus className="w-4 h-4" />} size="md" className="w-full sm:w-auto justify-center shadow-md shadow-blue-500/20">
             New Claim
           </Button>
         </Link>

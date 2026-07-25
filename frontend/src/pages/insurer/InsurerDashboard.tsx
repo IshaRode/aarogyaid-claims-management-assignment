@@ -29,8 +29,8 @@ export function InsurerDashboard() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 sm:gap-6">
+        <div className="space-y-1">
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -38,13 +38,13 @@ export function InsurerDashboard() {
           >
             Good morning, {user?.name?.split(' ')[0]} 👋
           </motion.h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-1 text-sm font-medium">
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">
             {recentPending.length > 0
               ? `${recentPending.length} claims awaiting your review.`
               : 'All claims are reviewed. Great work!'}
           </p>
         </div>
-        <Link to="/insurer/claims">
+        <Link to="/insurer/claims" className="shrink-0">
           <button className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors">
             View All Claims <ArrowRight className="w-4 h-4" />
           </button>
