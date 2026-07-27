@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sun, Moon, LogOut, Bell, ChevronDown, Activity } from 'lucide-react';
+import { Sun, Moon, LogOut, Activity } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -56,27 +56,15 @@ export function Navbar() {
               {isDark ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-slate-600" />}
             </motion.button>
 
-            {/* Notification bell (decorative) */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border border-slate-200/60 dark:border-slate-800 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800 transition-colors relative"
-              aria-label="Notifications"
-            >
-              <Bell className="w-4.5 h-4.5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full border-2 border-white dark:border-slate-900" />
-            </motion.button>
-
             {/* User avatar + logout */}
             <div className="flex items-center gap-1.5 ml-1">
-              <div className="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-xl border border-slate-200/60 dark:border-slate-800 hover:bg-slate-100/80 dark:hover:bg-slate-800 transition-colors cursor-default">
+              <div className="flex items-center gap-2 px-2.5 py-1 rounded-xl border border-slate-200/60 dark:border-slate-800 hover:bg-slate-100/80 dark:hover:bg-slate-800 transition-colors cursor-default">
                 <div className="w-7 h-7 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-xs font-bold text-white shadow-xs">
                   {initials}
                 </div>
                 <span className="hidden sm:block text-sm font-semibold text-slate-800 dark:text-slate-200 max-w-[110px] truncate">
                   {user?.name}
                 </span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
               </div>
 
               <motion.button

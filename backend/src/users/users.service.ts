@@ -33,12 +33,19 @@ export class UsersService implements OnApplicationBootstrap {
     for (const userData of demoUsers) {
       const exists = await this.userModel.findOne({ email: userData.email });
       if (!exists) {
-        const hashedPassword = await bcrypt.hash(userData.password, 10);
+        const hashedPassword = await bcrypt.hash(userData.password, 6);
         await this.userModel.create({
           ...userData,
           password: hashedPassword,
         });
         this.logger.log(`Seeded user: ${userData.email}`);
+      } else {
+        // Upgrade existing demo user password to fast 6-round hash if needed
+        const is10Rounds = exists.password.startsWith('$2a$10$') || exists.password.startsWith('$2b$10$');
+        if (is10Rounds) {
+          const hashedPassword = await bcrypt.hash(userData.password, 6);
+          await this.userModel.updateOne({ _id: exists._id }, { password: hashedPassword });
+        }
       }
     }
   }
@@ -49,7 +56,7 @@ export class UsersService implements OnApplicationBootstrap {
       throw new ConflictException('User with this email already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 6);
     const newUser = await this.userModel.create({
       email: data.email.toLowerCase(),
       password: hashedPassword,
