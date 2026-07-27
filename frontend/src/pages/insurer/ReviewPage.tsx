@@ -16,7 +16,7 @@ import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { Breadcrumb } from '../../components/layout/Breadcrumb';
 import { Skeleton } from '../../components/ui/Skeleton';
-import { formatCurrency, formatDateTime, generateClaimId, isImageFile } from '../../utils/helpers';
+import { formatCurrency, formatDateTime, generateClaimId, isImageFile, isPdfFile, getDocUrl } from '../../utils/helpers';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 
@@ -91,7 +91,7 @@ export function ReviewPage() {
 
   if (!claim) return <div className="text-center py-20"><p>Claim not found.</p></div>;
 
-  const docUrl = claim.uploadedDocument ? `${API_BASE}${claim.uploadedDocument}` : null;
+  const docUrl = getDocUrl(claim.uploadedDocument);
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -404,8 +404,59 @@ export function ReviewPage() {
 
       {/* Doc Preview Modal */}
       <Modal isOpen={showDocModal} onClose={() => setShowDocModal(false)} title="Document Preview" size="xl">
-        {docUrl && isImageFile(claim.uploadedDocument!) && (
-          <img src={docUrl} alt="Document" className="w-full rounded-xl" />
+        {docUrl ? (
+          isPdfFile(claim.uploadedDocument) ? (
+            <div className="space-y-4">
+              <iframe
+                src={docUrl}
+                title="Document Preview"
+                className="w-full h-[65vh] rounded-xl border border-slate-200 dark:border-slate-800"
+              />
+              <div className="flex justify-end">
+                <a
+                  href={docUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Open in new tab <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <img
+                src={docUrl}
+                alt="Document preview"
+                className="w-full max-h-[70vh] object-contain rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                  const fallback = document.getElementById(`doc-error-fallback-${claim._id}`);
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+              <div
+                id={`doc-error-fallback-${claim._id}`}
+                className="hidden flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-900 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3"
+              >
+                <FileText className="w-12 h-12 text-slate-400" />
+                <div>
+                  <p className="font-semibold text-slate-700 dark:text-slate-200">Document File</p>
+                  <p className="text-xs text-slate-400 mt-1">{claim.uploadedDocument?.split('/').pop() || 'Attached File'}</p>
+                </div>
+                <a
+                  href={docUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors shadow-sm"
+                >
+                  Open / Download Document <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          )
+        ) : (
+          <div className="text-center py-8 text-slate-500">No document attached.</div>
         )}
       </Modal>
     </div>

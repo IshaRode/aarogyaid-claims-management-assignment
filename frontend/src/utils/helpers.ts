@@ -56,10 +56,22 @@ export function generateClaimId(id: string): string {
   return `CLM-${id.slice(-6).toUpperCase()}`;
 }
 
-export function isImageFile(url: string): boolean {
-  return /\.(jpg|jpeg|png)$/i.test(url);
+export function isImageFile(url?: string | null): boolean {
+  if (!url) return false;
+  return /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(url);
 }
 
-export function isPdfFile(url: string): boolean {
+export function isPdfFile(url?: string | null): boolean {
+  if (!url) return false;
   return /\.pdf$/i.test(url);
+}
+
+export function getDocUrl(docPath?: string | null): string | null {
+  if (!docPath) return null;
+  if (docPath.startsWith('http://') || docPath.startsWith('https://')) {
+    return docPath.replace('http://localhost:3001', 'http://127.0.0.1:3001');
+  }
+  const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3001';
+  const cleanPath = docPath.startsWith('/') ? docPath : `/${docPath}`;
+  return `${apiBase}${cleanPath}`;
 }
