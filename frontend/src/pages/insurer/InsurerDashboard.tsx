@@ -98,7 +98,7 @@ export function InsurerDashboard() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-slate-200/80 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/40">
-                    {['Claim ID', 'Patient', 'Amount', 'Status', 'Date', ''].map((h) => (
+                    {['Claim ID', 'Patient', 'Amount', 'Status', 'Date', 'Action'].map((h) => (
                       <th key={h} className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">{h}</th>
                     ))}
                   </tr>

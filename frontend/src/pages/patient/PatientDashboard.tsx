@@ -139,7 +139,7 @@ export function PatientDashboard() {
                     <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Status</th>
                     <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Date</th>
                     <th className="text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Approved</th>
-                    <th className="px-6 py-4" />
+                    <th className="text-right text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider px-6 py-4">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
@@ -176,7 +176,7 @@ export function PatientDashboard() {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Link to={`/patient/claims/${claim._id}`}>
-                          <button className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                          <button className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold flex items-center gap-1 ml-auto">
                             View <ArrowRight className="w-3 h-3" />
                           </button>
                         </Link>
